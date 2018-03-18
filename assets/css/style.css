@@ -1,0 +1,10 @@
+.jumbotron {
+    text-align: center;
+}
+.bg-light{
+    margin-right: 50%;
+    margin-left: 25%;
+}
+.recipeDiv {
+    display: inline-block;
+}
