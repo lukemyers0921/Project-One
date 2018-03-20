@@ -14,39 +14,14 @@
   </head>
   <body>
     <div id = "box">
-    <!-- navbar -->
-    <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light" id="navbar">
+            <!-- <a class="navbar-brand" id="banner">Kwizeen</a> -->
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
           
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                  <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Dropdown
-                  </a>
-                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </nav> -->
-          <nav class="navbar navbar-expand-lg navbar-light bg-light" id = "navbar">
-            <a class="navbar-brand" id = "banner">Allergeat</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-          
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul class="navbar-nav mr-auto" id = "collapse">
+              <ul class="navbar-nav mr-auto" id="collapse">
                   <li class="nav-item active">
                       <a class="nav-link" href="index.html">Home</a>
                     </li>
@@ -54,7 +29,7 @@
                   <a class="nav-link" href="groceryList.html">Grocery List</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="recipeBook.html">Recipie Book</a>
+                  <a class="nav-link" href="recipeBook.html">Recipe Book</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="marketFinder.html">Market Finder</a>
@@ -64,16 +39,16 @@
           </nav>
           <!-- Jumbotron -->
           <div class="jumbotron bg-success">
-                <img src="./assets/images/AllergEat.png">
-            <p class="lead">Recipes with Peace of Mind</p>
+              <img src="./assets/images/kwizeen.png" id="logo">
+      
               
             <br>
-            <form id="searchForm">
-                <label id = "label"for="searchForm">Search for a recipe.</label>
-                <input type="text" id="search">
-                <input class = "btn"id="searchInput" type="submit" value="Submit">
+            <form class="form-inline" id="indexSearch">
+                <label id = "label"for="searchForm"></label>
+                <input class="form-control mr-sm-2"type="text" id="search" placeholder = "Search for a recipe!">
+                <input class = "btn btn-outline-light my-2 my-sm-0"id="searchInput" type="submit" value="Submit">
             </form> 
-            </nav>
+            </div>
           <p class="lead">
            </p>
           </div class>
@@ -81,7 +56,10 @@
           <div id = "recipes">
 
           </div>
-          
+          <video autoplay muted loop id="video">
+              <source src="./assets/cookingReel.mp4" type="video/mp4">
+              Your browser does not support HTML5 video.
+            </video>
     
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

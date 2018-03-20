@@ -1,10 +1,35 @@
 .jumbotron {
+    margin-top: 10%;
     text-align: center;
+    opacity: 0.7;
 }
-.bg-light{
-    margin-right: 50%;
-    margin-left: 25%;
+li {
+    color: white;
 }
-.recipeDiv {
-    display: inline-block;
+#indexSearch {
+    margin-left: 40%;
+}
+#video {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%; 
+    min-height: 100%;
+    z-index: -100;
+    filter: blur(7px)
+}
+@media only screen and (max-width: 1024px) and (min-width: 0px) {
+    .jumbotron {
+        max-width: 100%;
+        margin-top: 30%;
+    }
+    #logo {
+        max-width: 100%;
+    }
+    #indexSearch {
+        max-width: 50%;
+    }
+    #video {
+        max-height: 100%;
+    }
 }
