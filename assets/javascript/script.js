@@ -11,6 +11,10 @@ var config = {
   var database = firebase.database();
 //  ------
 // empty variables for later
+function containsSpecialCharacters(str){
+    var validate = /[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/g;
+	return validate.test(str);
+}
 var edamamQueryURL;
 var recipeIngredients  = [];
 //when #searchInput is clicked it calls a function
@@ -20,10 +24,19 @@ $("#box").on("click", "#searchInput",function(){
 // stops the page from reloading
    event.preventDefault();
 // takes the user input to add to api url
-   var search = "&q=" + $("#search").val().trim();
+   var validate = $("#search").val().trim();
+   var search = "&q=" + validate
+   var specialChar = containsSpecialCharacters(validate);
 // adds the search value
    edamamQueryURL ="https://api.edamam.com/search?app_id=6b23762f&app_key=c98d0681d3cd98dc145a3437b77fa123" + search;  
-// gets data from edamam api    
+// gets data from edamam api 
+if (validate == "") {
+    $(".lead").html("Enter a recipe to search.")
+    return false;
+} if(specialChar) {
+    $(".lead").html("Special characters are not allowed.")
+    return false;
+} else {
    $.ajax({
        url: edamamQueryURL,
        method: 'GET',
@@ -53,11 +66,12 @@ $("#box").on("click", "#searchInput",function(){
 // pushes the ingredients to the recipeIngredients array
            recipeIngredients.push(recipeData);
 // template literal to create the html
-           var recipeHTML = `<div class = recipeDiv><img class = "recipeImg" src =${recipeImage}><br><a class = "recipeLink" href =${recipeLink}>${recipeTitle}</a><br><button class = "addList" id = "${i}">Add to List</button><button class = "addBook" id = "${i}">Add to book</button></div>`
+           var recipeHTML = `<div class = recipeDiv><img class = "recipeImg" src =${recipeImage}><br><a class = "recipeLink" href =${recipeLink}>${recipeTitle}</a><br><button class = "addList btn btn-success" id = "${i}">Add to List</button><button class = "addBook btn btn-success" id = "${i}">Add to book</button></div>`
 // appends the created html      
            $("#recipes").append(recipeHTML);
        }
        });
+    }
 });
 // onclick events to add to server eventually. They currently only log to console
 $("#box").on("click", ".addList",function(){
