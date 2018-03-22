@@ -25,27 +25,30 @@ html2canvas(document.getElementById("tableHolder")).then(function(canvas) {
 }
 // when the #pdfBtn button is pressed it will run our genPDF function
 $("#box").on("click", "#pdfBtn",function(){
+event.preventDefault();
+$(".hide").hide();
 genPDF();
+$(".hide").show();
 });
 
 database.ref('List/').orderByChild("dateAdded").on("child_added", function (snapshot) {
+    
     var data = snapshot.val();
     console.log(data);
     var length = data.Object.recipe
     var td = "";
     for(i =0; i < length.length; i++){
-        td = td + "<tr><td>" + length[i] + "</td></tr>"
+        td = td + "<tr><td class =" + i + ">" + length[i] + "</td></tr>"
     }
-    console.log(td);
   
     var newBookEntry = 
     `
-    <div class = "row">
+    <div class = "row" >
         <div class = "col-xs-12">
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <h3 class="panel-title">
-                    <strong>${data.Object.title}</strong>
+                    <strong class = "title">${data.Object.title}</strong>
                 </h3>
             </div>
             <div class="panel-body">
@@ -59,13 +62,41 @@ database.ref('List/').orderByChild("dateAdded").on("child_added", function (snap
                     </tbody>
                 </table>
                 <img class = "recipeImg" src = "${data.Object.image}">
+                
             </div>
+            <button class = "hide addBook btn btn-success">Add to Book.</button>
+            <button class = "hide delete btn btn-danger">Remove from list.</button>
         </div>
         </div>
         </div>
+        <hr>
     `
     $("#tableHolder").append(newBookEntry);
 }, function (errorObject) {
     console.log("Errors handled: " + errorObject.code);
 
 });
+$("#box").on("click", ".addBook",function(){
+    event.preventDefault();
+   var recipe = [];
+   var titleT = $(this).parent("div").find(".title").text();
+   var image = $(this).parent("div").find(".recipeImg").attr("src")
+   
+   console.log(titleT);
+    var newBook = {
+        recipe: [],
+        title: "",
+        image: "",
+        
+    };
+    
+    newBook.recipe = [];
+    newBook.title = titleT;
+    newBook.image = image;
+    console.log(newBook);
+    var title = newBook.title;
+    // firebase.database().ref('Book/' + title).set({
+    //  Object: newBook,
+    //  dateAdded: firebase.database.ServerValue.TIMESTAMP,
+    // });        
+    });
