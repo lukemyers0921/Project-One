@@ -41,7 +41,7 @@ database.ref('List/').orderByChild("dateAdded").on("child_added", function (snap
         td = td + "<tr><td class =" + i + ">" + length[i] + "</td></tr>"
     }
   
-    var newBookEntry = 
+    var newEntry = 
     `
     <div class = "row" >
         <div class = "col-xs-12">
@@ -65,13 +65,13 @@ database.ref('List/').orderByChild("dateAdded").on("child_added", function (snap
                 
             </div>
             <button class = "hide addBook btn btn-success">Add to Book.</button>
-            <button class = "hide delete btn btn-danger">Remove from list.</button>
+            <button class = "hide delete btn btn-danger">Delete from list.</button>
         </div>
         </div>
         </div>
         <hr>
     `
-    $("#tableHolder").append(newBookEntry);
+    $("#tableHolder").append(newEntry);
 }, function (errorObject) {
     console.log("Errors handled: " + errorObject.code);
 
@@ -81,8 +81,16 @@ $("#box").on("click", ".addBook",function(){
    var recipe = [];
    var titleT = $(this).parent("div").find(".title").text();
    var image = $(this).parent("div").find(".recipeImg").attr("src")
-   
-   console.log(titleT);
+   var truthy = true;
+   for(i = 0; truthy == true; i++){
+    var string = $(this).parent("div").find("." + i).text();
+    if(string !== ""){
+    console.log(string);
+    recipe.push(string);
+    } else {
+        truthy = false;
+    }
+   }
     var newBook = {
         recipe: [],
         title: "",
@@ -90,13 +98,19 @@ $("#box").on("click", ".addBook",function(){
         
     };
     
-    newBook.recipe = [];
+    newBook.recipe = recipe;
     newBook.title = titleT;
     newBook.image = image;
-    console.log(newBook);
     var title = newBook.title;
-    // firebase.database().ref('Book/' + title).set({
-    //  Object: newBook,
-    //  dateAdded: firebase.database.ServerValue.TIMESTAMP,
-    // });        
+    firebase.database().ref('Book/' + title).set({
+     Object: newBook,
+     dateAdded: firebase.database.ServerValue.TIMESTAMP,
+    });        
+    });
+    $("#box").on("click", ".delete",function(){
+        event.preventDefault()
+        console.log("delete")
+        var title = $(this).parent("div").find(".title").text();
+        $(this).closest(".row").remove();
+        firebase.database().ref('List/' + title).remove();
     });

@@ -75,6 +75,7 @@ if (validate == "") {
 });
 // onclick events to add to server eventually. They currently only log to console
 $("#box").on("click", ".addList",function(){
+    event.preventDefault();
    var num = $(this).attr("id");
    var newList = {
        recipe: [],
@@ -92,6 +93,7 @@ $("#box").on("click", ".addList",function(){
   
 });
 $("#box").on("click", ".addBook",function(){
+event.preventDefault();
    var num = $(this).attr("id");
    var newBook = {
        recipe: [],
