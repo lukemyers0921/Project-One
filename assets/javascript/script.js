@@ -12,7 +12,7 @@ var config = {
 //  ------
 // empty variables for later
 function containsSpecialCharacters(str){
-    var validate = /[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/g;
+    var validate = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/g;
 	return validate.test(str);
 }
 var edamamQueryURL;
@@ -28,7 +28,7 @@ $("#box").on("click", "#searchInput",function(){
    var search = "&q=" + validate
    var specialChar = containsSpecialCharacters(validate);
 // adds the search value
-   edamamQueryURL ="https://api.edamam.com/search?app_id=6b23762f&app_key=c98d0681d3cd98dc145a3437b77fa123" + search;  
+   edamamQueryURL ="https://api.edamam.com/search?app_id=3fba54bc&app_key=517c8302846eab765baf6fc1d2c9d2f9" + search;  
 // gets data from edamam api 
 if (validate == "") {
     $(".lead").html("Enter a recipe to search.")

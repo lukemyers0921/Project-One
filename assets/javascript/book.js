@@ -10,25 +10,66 @@ var config = {
   firebase.initializeApp(config);
   var database = firebase.database();
 //creating a function to generate our pdf
-function genPDF() {
-// grabs the id tableHolder 
-html2canvas(document.getElementById("tableHolder")).then(function(canvas) {
-// creates our img
-    var img = canvas.toDataURL('image/png');
-// creats our pdf
-    var doc = new jsPDF();
-// adds our img to pdf
-    doc.addImage(img, 'JPEG', 20, 20);
-// saves pdf argument is title of download
-    doc.save('recipe_book.pdf');
-});
+var y = 20;
+var doc = new jsPDF()
+doc.setFontSize(40)
+doc.text(60,y,"Recipe Book")
+y = y + 20;
+function genPDF(){
+   var pdfPageTotal = document.querySelectorAll(".pdf");
+   var pdfPages = [];
+   var truthiest = true;
+   for(var i = 0; truthiest == true; i++){
+       var j = pdfPageTotal[i];
+       if(j) {
+           pdfPages.push(j)
+       } else {
+           truthiest = false;
+       }
+   }
+   
+   
+   for(var i = 0; i < pdfPages.length; i++){
+    var temp = pdfPages[i];
+    var title = $(temp).find(".title").text();
+    console.log(title);
+    var image = $(temp).find(".recipeImg")
+    var truthy = true;
+    doc.setFontSize(25)
+    doc.text(20,y,title);
+    y = y+10;
+    heightCheck();
+
+    for (j = 0; truthy == true; j++) {
+        var string = $(temp).find("." + j).text();
+        doc.setFontSize(12)
+        if (string !== "") {
+            console.log(string);
+            doc.text(30,y,string);
+            y = y+10;
+            heightCheck();
+        } else {
+            truthy = false;
+                       
+        }
+    }
+    
+   console.log(pdfPages.length);
+    
+   }
+   doc.save('recipe_book.pdf')
+   
 }
+function heightCheck() {
+    if(y ==280){
+        y = 20;
+        doc.addPage();
+    }
+}        
 // when the #pdfBtn button is pressed it will run our genPDF function
 $("#box").on("click", "#pdfBtn",function(){
 event.preventDefault();
-$(".hide").hide();
 genPDF();
-$(".hide").show();
 });
 
 database.ref('Book/').orderByChild("dateAdded").on("child_added", function (snapshot) {
@@ -43,7 +84,7 @@ database.ref('Book/').orderByChild("dateAdded").on("child_added", function (snap
   
     var newEntry = 
     `
-    <div class = "row" >
+    <div class = "row pdf" >
         <div class = "col-xs-12">
         <div class="panel panel-primary">
             <div class="panel-heading">
